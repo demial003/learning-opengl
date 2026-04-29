@@ -3,8 +3,9 @@ learning real time rendering with an emphasis on the fundamental mathematics beh
 
 ## Resources
 
-[learnopengl]{https://learnopengl.com/}
-[3D Computer Graphics: A Mathematical Introduction with (Modern) OpenGL]{https://mathweb.ucsd.edu/~sbuss/MathCG2/}
+- [learnopengl](https://learnopengl.com/)
+- [3D Computer Graphics: A Mathematical Introduction with (Modern) OpenGL](https://mathweb.ucsd.edu/~sbuss/MathCG2/)
+
 
 ## Yapping
 
