@@ -10,7 +10,7 @@ const char *vertextShaderSource =
     "layout (location = 0) in vec3 aPos;\n"
     "void main()\n"
     "{\n"
-    "  gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0f);\n"
+    "  gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0f);\n"
     "}\0";
 
 const char *fragmentShaderSource = "#version 400 core\n"
@@ -26,24 +26,8 @@ unsigned int VBO;
 
 void setupData() {
   float vertices[] = {
-      0.0f,  0.0f,   0.0f,  0.75f, -0.1f, 0.1f,
-
-      -0.1f, 0.1f,   -0.8f, 0.2f,
-
-      -0.8f, 0.2f,   -0.2f, -0.1f,
-
-      -0.2f, -0.1f,  -0.5f, -0.7f,
-
-      0.0f,  -0.25f, 0.5f,  -0.7f,
-
-      0.5f,  -0.7f,  0.2f,  -0.1f,
-
-      0.2f,  -0.1f,  0.8f,  0.2f,
-
-      0.8f,  0.2f,   0.1f,  0.1f,
-
-      0.1f,  0.1f,   0.0f,  0.75f,
-
+      0.0f,  0.0f, 0.0f,   0.75f, -0.1f, 0.1f, -0.8f, 0.2f, -0.2f, -0.1f, -0.5f,
+      -0.7f, 0.0f, -0.25f, 0.5f,  -0.7f, 0.2f, -0.1f, 0.8f, 0.2f,  0.1f,  0.1f,
   };
 
   glGenBuffers(1, &VBO);
@@ -54,7 +38,7 @@ void setupData() {
   glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
+  glBindVertexArray(0)
 }
 
 void setupShaders() {
@@ -77,7 +61,7 @@ void setupShaders() {
   glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
   glCompileShader(fragmentShader);
 
-  glCreateProgram();
+  shaderProgram = glCreateProgram();
   glAttachShader(shaderProgram, vertextShader);
   glAttachShader(shaderProgram, fragmentShader);
   glLinkProgram(shaderProgram);
