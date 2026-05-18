@@ -8,26 +8,36 @@
 const char *vertextShaderSource =
     "#version 400 core\n"
     "layout (location = 0) in vec3 aPos;\n"
+    "layout (location = 1) in vec3 vecColor;\n"
+    "flat out vec3 theColor;\n"
     "void main()\n"
     "{\n"
     "  gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0f);\n"
+    "  theColor = vecColor;\n"
     "}\0";
 
 const char *fragmentShaderSource = "#version 400 core\n"
+                                   "flat in vec3 theColor;\n"
                                    "out vec4 FragColor;\n"
                                    "void main()\n"
                                    "{\n"
-                                   "FragColor = vec4(0.7f, 0.3f, 1.0f, 1.0f);\n"
+                                   "FragColor = vec4(theColor, 1.0);\n"
                                    "}\0";
 
 unsigned int shaderProgram;
 unsigned int VAO;
 unsigned int VBO;
+unsigned int v_posLoc = 0;
+unsigned int v_colorLoc = 1;
 
 void setupData() {
   float vertices[] = {
-      0.0f,  0.0f, 0.0f,   0.75f, -0.1f, 0.1f, -0.8f, 0.2f, -0.2f, -0.1f, -0.5f,
-      -0.7f, 0.0f, -0.25f, 0.5f,  -0.7f, 0.2f, -0.1f, 0.8f, 0.2f,  0.1f,  0.1f,
+      0.0f,  0.0f,   0.6f, 0.3f, 0.8f, 0.0f,  0.75f, 0.7f, 0.3f, 0.1f,
+      -0.1f, 0.1f,   0.3f, 0.5f, 0.9f, -0.8f, 0.2f,  0.1f, 0.9f, 0.5f,
+      -0.2f, -0.1f,  0.9f, 0.1f, 0.5f, -0.5f, -0.7f, 0.3f, 0.4f, 0.7f,
+      0.0f,  -0.25f, 0.1f, 0.3f, 0.2f, 0.5f,  -0.7f, 0.7f, 0.7f, 0.7f,
+      0.2f,  -0.1f,  0.3f, 0.9f, 0.9f, 0.8f,  0.2f,  0.5f, 0.3f, 0.9f,
+      0.1f,  0.1f,   0.1f, 0.5f, 0.2f, 0.0f,  0.75f, 0.7f, 0.2f, 0.1f,
   };
 
   glGenBuffers(1, &VBO);
@@ -35,10 +45,14 @@ void setupData() {
   glBindVertexArray(VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
-  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(v_posLoc, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
+                        (void *)0);
+  glVertexAttribPointer(v_colorLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
+                        (void *)(2 * sizeof(float)));
+  glEnableVertexAttribArray(v_posLoc);
+  glEnableVertexAttribArray(v_colorLoc);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0)
+  glBindVertexArray(0);
 }
 
 void setupShaders() {
@@ -106,6 +120,7 @@ int main(void) {
   }
 
   glViewport(0, 0, 600, 400);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -115,12 +130,9 @@ int main(void) {
   while (!glfwWindowShouldClose(window)) {
     processInput(window);
 
-    // glClearColor(0.7f, 0.8f, 0.8f, 1.0f);
-    // glClear(GL_COLOR_BUFFER_BIT);
-
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, 20);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 12);
 
     glfwSwapBuffers(window);
     glfwPollEvents();
