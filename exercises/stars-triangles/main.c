@@ -5,19 +5,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const char *vertextShaderSource =
-    "#version 400 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "layout (location = 1) in vec3 vecColor;\n"
-    "flat out vec3 theColor;\n"
-    "void main()\n"
-    "{\n"
-    "  gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0f);\n"
-    "  theColor = vecColor;\n"
-    "}\0";
+const char *vertextShaderSource = "#version 400 core\n"
+                                  "layout (location = 0) in vec2 aPos;\n"
+                                  "layout (location = 1) in vec3 vecColor;\n"
+                                  "out vec3 theColor;\n"
+                                  "void main()\n"
+                                  "{\n"
+                                  "  gl_Position = vec4(aPos, 0.0, 1.0);\n"
+                                  "  theColor = vecColor;\n"
+                                  "}\0";
 
 const char *fragmentShaderSource = "#version 400 core\n"
-                                   "flat in vec3 theColor;\n"
+                                   "in vec3 theColor;\n"
                                    "out vec4 FragColor;\n"
                                    "void main()\n"
                                    "{\n"
@@ -121,6 +120,10 @@ int main(void) {
 
   glViewport(0, 0, 600, 400);
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  glEnable(GL_DEPTH_TEST);
+  glDepthFunc(GL_LEQUAL);
+  glfwWindowHint(GLFW_SAMPLES, 4);
+  glEnable(GL_MULTISAMPLE);
 
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
