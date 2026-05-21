@@ -32,49 +32,51 @@ unsigned int v_colorLoc = 1;
 
 void setupData() {
   float vertices[] = {
-      0.5,  0.5,  0.5,  1.0, 0.0, 0.0, // first point
-      0.5,  -0.5, 0.5,  1.0, 0.0, 0.0, // second point
-      -0.5, 0.5,  0.5,  1.0, 0.0, 0.0, // third point
-      -0.5, -0.5, 0.5,  1.0, 0.0, 0.0, // fourth point
-      0.5,  0.5,  -0.5, 0.0, 0.0, 1.0, // fifth point
-      0.5,  -0.5, -0.5, 0.0, 0.0, 1.0, // sixth point
-      -0.5, 0.5,  -0.5, 0.0, 1.0, 0.0, // seventh point
-      -0.5, -0.5, -0.5, 0.0, 1.0, 0.0  // eight point
+      1.0,  1.0,  1.0,  1.0, 1.0, 0.0, // first point
+      1.0,  -1.0, 1.0,  1.0, 1.0, 0.0, // second point
+      -1.0, 1.0,  1.0,  1.0, 1.0, 0.0, // third point
+      -1.0, -1.0, 1.0,  1.0, 1.0, 0.0, // fourth point
+
+      1.0,  1.0,  1.0,  1.0, 0.0, 0.0, // first point
+      -1.0, 1.0,  1.0,  1.0, 0.0, 0.0, // third point
+      1.0,  1.0,  -1.0, 1.0, 0.0, 0.0, // fifth point
+      -1.0, 1.0,  -1.0, 1.0, 0.0, 0.0, // seventh point
+
+      1.0,  1.0,  -1.0, 0.0, 1.0, 1.0, // fifth point
+      1.0,  -1.0, -1.0, 0.0, 1.0, 1.0, // sixth point
+      -1.0, 1.0,  -1.0, 0.0, 1.0, 1.0, // seventh point
+      -1.0, -1.0, -1.0, 0.0, 1.0, 1.0, // eight point
+
+      1.0,  -1.0, 1.0,  1.0, 0.0, 1.0, // second point
+      -1.0, -1.0, 1.0,  1.0, 0.0, 1.0, // fourth point
+      1.0,  -1.0, -1.0, 1.0, 0.0, 1.0, // sixth point
+      -1.0, -1.0, -1.0, 1.0, 0.0, 1.0, // eight point
+
+      1.0,  1.0,  1.0,  0.0, 1.0, 0.0, // first point
+      1.0,  -1.0, 1.0,  0.0, 1.0, 0.0, // second point
+      1.0,  1.0,  -1.0, 0.0, 1.0, 0.0, // fifth point
+      1.0,  -1.0, -1.0, 0.0, 1.0, 0.0, // sixth point
+
+      -1.0, 1.0,  1.0,  1.0, 1.0, 1.0, // third point
+      -1.0, -1.0, 1.0,  1.0, 1.0, 1.0, // fourth point
+      -1.0, 1.0,  -1.0, 1.0, 1.0, 1.0, // seventh point
+      -1.0, -1.0, -1.0, 1.0, 1.0, 0.0  // eight point
   };
 
   unsigned int indices[] = {
-      0,
-      2,
-      1, // first triangle
-      3,
-      1,
-      2, // second triangle
-      4,
-      6,
-      0, // third triangle
-      2,
-      0,
-      6, // fourth triangle
-      // 5, 7, 4, // fifth triangle
-      // 6, 4, 7, // sixth triangle
-      1,
-      3,
-      5, // seventh triangle
-      7,
-      5,
-      3, // eighth triangle
-      0,
-      1,
-      4, // ninth triangle
-      5,
-      4,
-      1, // tenth triangle
-      3,
-      2,
-      7, // eleventh triangle
-      6,
-      7,
-      2, // twelfth triangle
+      0,  2,  1,  // first triangle
+      3,  1,  2,  // second triangle
+      6,  7,  4,  // third triangle
+      5,  4,  7,  // fourth triangle
+      9,  8,  11, // fifth triangle
+      10, 11, 8,  // sixth triangle
+      12, 13, 14, // seventh triangle
+      15, 14, 13, // eigth triangle
+      16, 17, 18, // ninth triangle
+      19, 18, 17, // tenth triangle
+      21, 20, 23, // eleventh triangle
+      22, 23, 20, // twelfth triangle
+
   };
 
   glGenBuffers(1, &VBO);
@@ -164,12 +166,11 @@ int main(void) {
     exit(EXIT_FAILURE);
   }
 
-  glViewport(0, 0, 800, 800);
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-  glEnable(GL_DEPTH_TEST);
-  glDepthFunc(GL_LEQUAL);
-  glfwWindowHint(GLFW_SAMPLES, 4);
-  glEnable(GL_MULTISAMPLE);
+  glViewport(0, 0, 500, 500);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+  glEnable(GL_CULL_FACE);
+  glCullFace(GL_BACK);
 
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -181,7 +182,7 @@ int main(void) {
 
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
-    //  glDrawArrays(GL_TRIANGLES, 0, 12);
+    //  glDrawArrays(GL_TRIANGLES, 0, 36);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
     glfwSwapBuffers(window);
     glfwPollEvents();
