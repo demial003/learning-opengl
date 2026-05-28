@@ -118,7 +118,7 @@ int main(void) {
     exit(EXIT_FAILURE);
   }
 
-  glViewport(0, 0, 600, 400);
+  glViewport(0, 0, 600, 600);
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);

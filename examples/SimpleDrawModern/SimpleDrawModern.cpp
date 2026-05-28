@@ -236,7 +236,16 @@ void myRenderScene() {
     // Draw three overlapping triangles
     // Colors for the triangles have already been loaded into the VBO.
     glBindVertexArray(myVAO[iTriangles]);
+
+    glDisableVertexAttribArray(vertColor_loc);
+    glVertexAttrib3f(vertColor_loc, 1.0f, 1.0f, 1.0f);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawArrays(GL_TRIANGLES, 0, 9);
+    glEnableVertexAttribArray(vertColor_loc);
+
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glDrawArrays(GL_TRIANGLES, 0, 9);
+
     break;
   case 1:
     // Draw separate lines:
