@@ -34,13 +34,19 @@ unsigned int currentMode = 0;
 void setupData() {
 
   float vertices[] = {
-      0.8f,  0.0f, 0.7f, 0.7f, 0.7f, 0.8f,  0.8f,  0.7f, 0.7f, 0.7f,
-      -0.8f, 0.0f, 0.7f, 0.7f, 0.7f, -0.8f, 0.0f,  0.7f, 0.7f, 0.7f,
-      0.6f,  0.0f, 0.7f, 0.7f, 0.7f, 0.6f,  0.6f,  0.7f, 0.7f, 0.7f,
-      -0.6f, 0.0f, 0.7f, 0.7f, 0.7f, -0.6f, -0.6f, 0.7f, 0.7f, 0.7f,
+      0.8f,  0.0f, 0.7f, 0.7f, 0.7f, 0.0f, 0.8f,  0.7f, 0.7f, 0.7f,
+      -0.8f, 0.0f, 0.7f, 0.7f, 0.7f, 0.0f, -0.8f, 0.7f, 0.7f, 0.7f,
+      0.4f,  0.0f, 0.7f, 0.7f, 0.7f, 0.0f, 0.4f,  0.7f, 0.7f, 0.7f,
+      -0.4f, 0.0f, 0.7f, 0.7f, 0.7f, 0.0f, -0.4f, 0.7f, 0.7f, 0.7f,
 
   };
-  float indices[] = {};
+  unsigned int indices[] = {
+      0, 1, 4, 4, 5, 1, 1, 2, 5, 5, 6, 2,
+      2, 7, 6, 2, 7, 3, 3, 4, 7, 3, 4, 0, // triangle strip
+
+      0, 1, 5, 4, 7, 3, // triangle fan 1
+      2, 3, 7, 6, 5, 1, // triangle fan 2
+  };
 
   glGenBuffers(1, &VBO);
   glGenBuffers(1, &EBO);
@@ -81,12 +87,13 @@ void setupShaders() {
   }
 
   unsigned int fragmentShader;
-  fragmentShader = glCreateShader(fragmentShader);
+  fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
   glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
   glCompileShader(fragmentShader);
+  glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
 
   if (!success) {
-    glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+    glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
     printf("ERROR SHADER FAILED %s\n", infoLog);
   }
 
@@ -105,7 +112,7 @@ void setupShaders() {
   glDeleteShader(fragmentShader);
 }
 
-void framebuffer_size_callback(GLFWwindow *window, int height, int width) {
+void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
   glViewport(0, 0, width, height);
 }
 
@@ -151,7 +158,20 @@ int main(void) {
     processInput(window);
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
-    glDrawArrays(GL_LINE_LOOP, 0, 8);
+    switch (currentMode) {
+    case 0:
+      glDrawElements(GL_TRIANGLE_STRIP, 24, GL_UNSIGNED_INT, (void *)0);
+      break;
+    case 1:
+      glDisableVertexAttribArray(v_colorLoc);
+      glVertexAttrib3f(v_colorLoc, 1.0f, 1.0f, 0.0f);
+      glDrawElements(GL_TRIANGLE_FAN, 6, GL_UNSIGNED_INT,
+                     (void *)(24 * sizeof(unsigned int)));
+      glDrawElements(GL_TRIANGLE_FAN, 6, GL_UNSIGNED_INT,
+                     (void *)(30 * sizeof(unsigned int)));
+      glEnableVertexAttribArray(v_colorLoc);
+      break;
+    }
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
