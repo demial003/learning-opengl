@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wno-deprecated-register
 
-SRCS = SimpleAnimModern.cpp ShaderMgrSAM.cpp LinearR3.cpp LinearR4.cpp
+SRCS = SolarModern.cpp ShaderMgrSLR.cpp LinearR3.cpp LinearR4.cpp GlGeomBase.cpp GlGeomSphere.cpp
 TARGET = main
 
 BREW_PREFIX = /opt/homebrew
