@@ -1,2 +1,2 @@
-main: main.c
-	gcc -o main main.c -lglfw -lglad
+main: main.cpp
+	g++ -o main main.cpp -lglfw -lglad -framework OpenGL
