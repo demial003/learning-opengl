@@ -40,50 +40,50 @@ unsigned int v_colorLoc = 1;
 
 void setupData() {
   float vertices[] = {
-      1.0,  1.0,  1.0, 1.0, 1.0, 0.0, // first point
-      1.0,  -1.0, 1.0, 1.0, 1.0, 0.0, // second point
-      -1.0, 1.0,  1.0, 1.0, 1.0, 0.0, // third point
-      -1.0, -1.0, 1.0, 1.0, 1.0, 0.0, // fourth point
+      1.0,  1.0,  1.0,  1.0, 1.0, 0.0, // first point
+      1.0,  -1.0, 1.0,  1.0, 1.0, 0.0, // second point
+      -1.0, 1.0,  1.0,  1.0, 1.0, 0.0, // third point
+      -1.0, -1.0, 1.0,  1.0, 1.0, 0.0, // fourth point
 
-      //       1.0,  1.0,  1.0,  1.0, 0.0, 0.0, // first point
-      //       -1.0, 1.0,  1.0,  1.0, 0.0, 0.0, // third point
-      //       1.0,  1.0,  -1.0, 1.0, 0.0, 0.0, // fifth point
-      //       -1.0, 1.0,  -1.0, 1.0, 0.0, 0.0, // seventh point
-      //
-      //       1.0,  1.0,  -1.0, 0.0, 1.0, 1.0, // fifth point
-      //       1.0,  -1.0, -1.0, 0.0, 1.0, 1.0, // sixth point
-      //       -1.0, 1.0,  -1.0, 0.0, 1.0, 1.0, // seventh point
-      //       -1.0, -1.0, -1.0, 0.0, 1.0, 1.0, // eight point
-      //
-      //       1.0,  -1.0, 1.0,  1.0, 0.0, 1.0, // second point
-      //       -1.0, -1.0, 1.0,  1.0, 0.0, 1.0, // fourth point
-      //       1.0,  -1.0, -1.0, 1.0, 0.0, 1.0, // sixth point
-      //       -1.0, -1.0, -1.0, 1.0, 0.0, 1.0, // eight point
-      //
-      //       1.0,  1.0,  1.0,  0.0, 1.0, 0.0, // first point
-      //       1.0,  -1.0, 1.0,  0.0, 1.0, 0.0, // second point
-      //       1.0,  1.0,  -1.0, 0.0, 1.0, 0.0, // fifth point
-      //       1.0,  -1.0, -1.0, 0.0, 1.0, 0.0, // sixth point
-      //
-      //       -1.0, 1.0,  1.0,  1.0, 1.0, 1.0, // third point
-      //       -1.0, -1.0, 1.0,  1.0, 1.0, 1.0, // fourth point
-      //       -1.0, 1.0,  -1.0, 1.0, 1.0, 1.0, // seventh point
-      //       -1.0, -1.0, -1.0, 1.0, 1.0, 0.0  // eight point
+      1.0,  1.0,  1.0,  1.0, 0.0, 0.0, // first point
+      -1.0, 1.0,  1.0,  1.0, 0.0, 0.0, // third point
+      1.0,  1.0,  -1.0, 1.0, 0.0, 0.0, // fifth point
+      -1.0, 1.0,  -1.0, 1.0, 0.0, 0.0, // seventh point
+
+      1.0,  1.0,  -1.0, 0.0, 1.0, 1.0, // fifth point
+      1.0,  -1.0, -1.0, 0.0, 1.0, 1.0, // sixth point
+      -1.0, 1.0,  -1.0, 0.0, 1.0, 1.0, // seventh point
+      -1.0, -1.0, -1.0, 0.0, 1.0, 1.0, // eight point
+
+      1.0,  -1.0, 1.0,  1.0, 0.0, 1.0, // second point
+      -1.0, -1.0, 1.0,  1.0, 0.0, 1.0, // fourth point
+      1.0,  -1.0, -1.0, 1.0, 0.0, 1.0, // sixth point
+      -1.0, -1.0, -1.0, 1.0, 0.0, 1.0, // eight point
+
+      1.0,  1.0,  1.0,  0.0, 1.0, 0.0, // first point
+      1.0,  -1.0, 1.0,  0.0, 1.0, 0.0, // second point
+      1.0,  1.0,  -1.0, 0.0, 1.0, 0.0, // fifth point
+      1.0,  -1.0, -1.0, 0.0, 1.0, 0.0, // sixth point
+
+      -1.0, 1.0,  1.0,  1.0, 1.0, 1.0, // third point
+      -1.0, -1.0, 1.0,  1.0, 1.0, 1.0, // fourth point
+      -1.0, 1.0,  -1.0, 1.0, 1.0, 1.0, // seventh point
+      -1.0, -1.0, -1.0, 1.0, 1.0, 1.0  // eight point
   };
 
   unsigned int indices[] = {
-      0, 2, 1, // first triangle
-      3, 1, 2, // second triangle
-               //      6,  7,  4,  // third triangle
-               //      5,  4,  7,  // fourth triangle
-               //      9,  8,  11, // fifth triangle
-               //      10, 11, 8,  // sixth triangle
-               //      12, 13, 14, // seventh triangle
-               //      15, 14, 13, // eigth triangle
-               //      16, 17, 18, // ninth triangle
-               //      19, 18, 17, // tenth triangle
-               //      21, 20, 23, // eleventh triangle
-               //      22, 23, 20, // twelfth triangle
+      0,  2,  1,  // first triangle
+      3,  1,  2,  // second triangle
+      6,  7,  4,  // third triangle
+      5,  4,  7,  // fourth triangle
+      9,  8,  11, // fifth triangle
+      10, 11, 8,  // sixth triangle
+      12, 13, 14, // seventh triangle
+      15, 14, 13, // eigth triangle
+      16, 17, 18, // ninth triangle
+      19, 18, 17, // tenth triangle
+      21, 20, 23, // eleventh triangle
+      22, 23, 20, // twelfth triangle
 
   };
 
@@ -113,7 +113,7 @@ void setupData() {
 void setupShaders() {
   unsigned int vertexShader;
   vertexShader = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vertexShader, 1, &vertextShaderSource, NULL);
+  glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
   glCompileShader(vertexShader);
 
   int success;
@@ -190,17 +190,18 @@ int main(void) {
   while (!glfwWindowShouldClose(window)) {
     processInput(window);
 
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f),
-                        glm::vec3(0.0f, 1.0f, 0.0f));
+                        glm::vec3(1.0f, 1.0f, 1.0f));
 
     glm::mat4 view = glm::mat4(1.0f);
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -10.0f));
 
     glm::mat4 projection = glm::mat4(1.0f);
     projection =
@@ -217,7 +218,7 @@ int main(void) {
     glUniformMatrix4fv(projection_loc, 1, GL_FALSE, glm::value_ptr(projection));
 
     //     glDrawArrays(GL_TRIANGLES, 0, 4);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
     glfwSwapBuffers(window);
     glfwPollEvents();
   }

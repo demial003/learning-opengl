@@ -1,2 +1,2 @@
 main: HelloWorld.cpp
-	g++ -o HelloWorld HelloWorld.cpp -ggdb -O0 -pedantic-errors
+	g++ -std=c++23 -o HelloWorld HelloWorld.cpp -ggdb -O0 -pedantic-errors -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -Werror

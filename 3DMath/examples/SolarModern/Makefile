@@ -5,7 +5,7 @@ SRCS = SolarModern.cpp ShaderMgrSLR.cpp LinearR3.cpp LinearR4.cpp GlGeomBase.cpp
 TARGET = main
 
 
-LDFLAGS  = -lglfw -lGLEW -lglad \
+LDFLAGS  = -lglfw -lGLEW -lglad -framework OpenGL\
 
 $(TARGET): $(SRCS)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SRCS) -o $(TARGET) $(LDFLAGS)

@@ -7,7 +7,7 @@ TARGET = main
 BREW_PREFIX = /opt/homebrew
 
 INCLUDES = -I$(BREW_PREFIX)/include
-LDFLAGS  = -L$(BREW_PREFIX)/lib -lglfw -lGLEW -lGL \
+LDFLAGS  = -L$(BREW_PREFIX)/lib -lglfw -lGLEW -lglad -framework OpenGL \
 
 $(TARGET): $(SRCS)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SRCS) -o $(TARGET) $(LDFLAGS)
