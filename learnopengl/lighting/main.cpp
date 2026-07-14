@@ -34,15 +34,16 @@ const char *fragmentShaderSource =
     "uniform sampler2D texture1;\n"
     "uniform sampler2D texture2;\n"
     "uniform float textureMix;\n"
+    "uniform vec3 objectColor;\n"
+    "uniform vec3 lightColor;\n"
     "void main()\n"
     "{\n"
-    "FragColor = mix(texture(texture1, "
-    "TexCoord), texture(texture2, vec2(-TexCoord.x, TexCoord.y)), "
-    "textureMix);\n"
+    "FragColor = vec4(objectColor * lightColor, 1.0);\n"
     "}\0";
 
 unsigned int VBO;
 unsigned int VAO;
+unsigned int lightVAO;
 unsigned int EBO;
 unsigned int shaderProgram;
 unsigned int texture1;
@@ -97,6 +98,7 @@ void setupGeometry() {
   glGenBuffers(1, &VBO);
   glGenBuffers(1, &EBO);
   glGenVertexArrays(1, &VAO);
+  glGenVertexArrays(1, &lightVAO);
   glBindVertexArray(VAO);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -112,6 +114,11 @@ void setupGeometry() {
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
+
+  glBindVertexArray(lightVAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+  glEnableVertexAttribArray(0);
 }
 
 void setupTextures() {
@@ -314,6 +321,12 @@ int main(void) {
   glUniform1i(tex_uniform_loc1, 0);
   glUniform1i(tex_uniform_loc2, 1);
 
+  GLint lightColorLoc = glGetUniformLocation(shaderProgram, "lightColor");
+  GLint objectColorLoc = glGetUniformLocation(shaderProgram, "objectColor");
+
+  glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
+  glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f);
+
   glEnable(GL_DEPTH_TEST);
 
   while (!glfwWindowShouldClose(window)) {
@@ -347,17 +360,15 @@ int main(void) {
     glUniformMatrix4fv(view_loc, 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(projection_loc, 1, GL_FALSE, glm::value_ptr(projection));
 
-    for (int i = 0; i < 10; i++) {
-      glm::mat4 model = glm::mat4(1.0f);
-      model = glm::translate(model, cubePositions[i]);
-      float angle = 20.0f * i;
-      model =
-          glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-      unsigned int model_loc = glGetUniformLocation(shaderProgram, "model");
-      glUniformMatrix4fv(model_loc, 1, GL_FALSE, glm::value_ptr(model));
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, cubePositions[0]);
+    float angle = 20.0f;
+    model =
+        glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+    unsigned int model_loc = glGetUniformLocation(shaderProgram, "model");
+    glUniformMatrix4fv(model_loc, 1, GL_FALSE, glm::value_ptr(model));
 
-      glDrawArrays(GL_TRIANGLES, 0, 36);
-    }
+    glDrawArrays(GL_TRIANGLES, 0, 36);
 
     glfwSwapBuffers(window);
     glfwPollEvents();
