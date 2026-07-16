@@ -13,4 +13,6 @@ I've been getting into some lower level programming and am fascinated by how peo
 
 ## Progess
 - Chapter 1: Introduction &#x2611;
-- Chapter 2: Transformations and Viewing ...
+- Chapter 2: Transformations and Viewing &#x2611;
+- Chapter 3: The Rendering Pipeline &#x2611;
+- Chapter 4: Lighting and Shading ...
